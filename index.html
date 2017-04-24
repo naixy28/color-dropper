@@ -11,7 +11,9 @@
             <input type="text" v-model="newColor" @keyup.enter="addColor">
         </header>
         <main>
-            <div v-for="color in filteredColors" :style="{ backgroundColor: color.num }" >{{ color.num }}</div>
+            <div v-for="color in filteredColors" 
+            :style="{ backgroundColor: color.num }"
+            @click="copyColor(color.num, $event)" >{{ color.num }}</div>
         </main>
     </div>
 
