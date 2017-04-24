@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Droper</title>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h4>Colors</h4>
+            <input type="text" v-model="newColor" @keyup.enter="addColor">
+        </header>
+        <main>
+            <div v-for="color in filteredColors" :style="{ backgroundColor: color.num }" >{{ color.num }}</div>
+        </main>
+    </div>
+
+    <script src="./node_modules/vue/dist/vue.min.js"></script>
+    <script src="./src/color-dropper.js"></script>    
+</body>
+</html>
