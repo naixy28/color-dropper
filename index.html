@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Color Droper</title>
+    <style>
+        div:focus {
+            color: yellow;
+            border: 1px solid black;
+            outline: none;
+        }
+    </style>
 </head>
 <body>
     <div class="app">
@@ -13,7 +20,11 @@
         <main>
             <div v-for="color in filteredColors" 
             :style="{ backgroundColor: color.num }"
-            @click="copyColor(color.num, $event)" >{{ color.num }}</div>
+            @click="copyColor(color.num, $event)" 
+            @keyup.delete="removeColor(color.key)"
+            tabindex="-1">{{ color.num }}</div>
+            <!--use tabindex to enable focusable on divs-->
+            <!--then keyup could be caught on divs-->
         </main>
     </div>
 

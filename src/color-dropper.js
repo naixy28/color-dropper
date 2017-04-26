@@ -1,8 +1,8 @@
 /**TODO
  * 
  * - copy on click
- * 输入值的分析和过滤
- * remove color
+ * - 输入值的分析和过滤
+ * - remove color with delete
  * persistence
  * 动画效果和样式
  * cloak
@@ -10,7 +10,7 @@
  */
 
 function selectText (element) {
-  var text = element,
+  let text = element,
       range,
       selection;
 
@@ -29,7 +29,7 @@ function validationColorNum ( newColor ) {
     const isColor = /^#{0,1}([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
     const addHash = /^(?!#)/;
 
-    var colorStr = newColor && newColor.trim();
+    let colorStr = newColor && newColor.trim();
     if (!colorStr) return;
     if (isColor.test(colorStr)){
         colorStr = colorStr.toUpperCase().replace( addHash, '#' );
@@ -38,11 +38,15 @@ function validationColorNum ( newColor ) {
     return;
 }
 
-var app = new Vue({
+const app = new Vue({
 
     data: {
         newColor: '',
-        colors: []
+        colors: [
+            { key: 0, num: '#eaa' },
+            { key: 1, num: '#aee' }
+        ],
+        maxKey: 1
     },
 
     computed: {
@@ -52,17 +56,38 @@ var app = new Vue({
     },
 
     methods: {
-        addColor: function() {
-            const colorObj = {
-                num: this.newColor,
-            };
-            this.colors.push( { num: this.newColor } );
+        addColor: function () {
+            let newColor = validationColorNum(this.newColor) || '';
+            console.log( 'color:', newColor );
+            newColor && this.colors.push( { key: this.maxKey+1, num: newColor } );
             this.newColor = '';
         },
-        copyColor: function(colorNum, e) {
+        copyColor: function (colorNum, e) {
             // TODO need validation on ele type
             selectText(e.target);
             document.execCommand('copy');
+        },
+        removeColor: function (key) {
+            let index = -1;
+            for (let i = 0; i < this.colors.length; i++) {
+                if (this.colors[i].key === key) {
+                    index = i;
+                    break;
+                }
+            }
+            index >= 0 && this.colors.splice( index, 1 );
+        }
+    },
+
+    watch: {
+        colors: function (val) {
+            let tempMax = 0;
+            for ( let i = 0; i < val.length; i++){
+                if (val[i].key > tempMax){
+                    tempMax = val[i].key;
+                }
+            }
+            this.maxKey = tempMax;
         }
     }
 })
