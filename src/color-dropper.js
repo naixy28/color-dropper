@@ -3,11 +3,26 @@
  * - copy on click
  * - 输入值的分析和过滤
  * - remove color with delete
- * persistence
- * 动画效果和样式
- * cloak
- * 分组？ 显示 隐藏
+ * - persistence
+ * - cloak
+ * design and animation
+ * learn functions from coolors.co
+ * ？ 分组 显示 隐藏
+ * ? fetch color schemes from ...
+ * 
+ * USE XD!!!
  */
+
+const STORAGE_KEY = 'color-dropper';
+const colorsStorage = {
+    fetch: function () {
+        let colors = JSON.parse( localStorage.getItem( STORAGE_KEY )) || [] ;
+        return colors;
+    },
+    save: function (colors) {
+        localStorage.setItem( STORAGE_KEY, JSON.stringify(colors) )
+    }
+}
 
 function selectText (element) {
   let text = element,
@@ -42,10 +57,7 @@ const app = new Vue({
 
     data: {
         newColor: '',
-        colors: [
-            { key: 0, num: '#eaa' },
-            { key: 1, num: '#aee' }
-        ],
+        colors:  colorsStorage.fetch(),
         maxKey: 1
     },
 
@@ -88,6 +100,8 @@ const app = new Vue({
                 }
             }
             this.maxKey = tempMax;
+
+            colorsStorage.save(val);
         }
     }
 })

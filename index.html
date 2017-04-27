@@ -9,6 +9,9 @@
             border: 1px solid black;
             outline: none;
         }
+        [v-cloak] {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -22,7 +25,8 @@
             :style="{ backgroundColor: color.num }"
             @click="copyColor(color.num, $event)" 
             @keyup.delete="removeColor(color.key)"
-            tabindex="-1">{{ color.num }}</div>
+            tabindex="-1"
+            v-cloak>{{ color.num }}</div>
             <!--use tabindex to enable focusable on divs-->
             <!--then keyup could be caught on divs-->
         </main>
