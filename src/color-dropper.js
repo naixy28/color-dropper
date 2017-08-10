@@ -20,7 +20,7 @@ const colorsStorage = {
         return colors;
     },
     save: function (colors) {
-        localStorage.setItem( STORAGE_KEY, JSON.stringify(colors) )
+        localStorage.setItem( STORAGE_KEY, JSON.stringify(colors))
     }
 }
 
@@ -106,4 +106,4 @@ const app = new Vue({
     }
 })
 
-app.$mount('.app')
+app.$mount('.app');
