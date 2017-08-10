@@ -1,5 +1,5 @@
 # color-dropper
-一个用于快速取色的小工具
+一个用于快速取色的小工具 [Demo](https://naixy28.github.io/color-dropper/)
 
 ## Features
 - 使用了本地存储
